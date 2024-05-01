@@ -44,11 +44,11 @@ variable "sl_params" {
 }
 variable "public_rt_params" {
   description          = "Route Table Params for public subnet"
-  type                 = string
+  type                 = map(string)
 }
 variable "private_rt_params" {
   description          = "Route Table Params for private subnet"
-  type                 = string
+  type                 = map(string)
 }
 variable "user_name" { 
   description          = "User name to be used to access instances via SSH"
