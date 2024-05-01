@@ -8,22 +8,22 @@ igw_display_name         = "igw"
 
 ngw_display_name         = "ngw"
 
-public_subnet_params     = {
-  display_name           = "public"
-  cidr_block             = "10.0.1.0/24"
-  dns_label              = "public"
-  is_subnet_private      = false
-  sl_name                = "public"
-  rt_name                = "public"
+public_subnet_params            = {
+    display_name         = "public"
+    cidr_block           = "10.0.1.0/24"
+    dns_label            = "public"
+    is_subnet_private    = false
+    sl_name              = "public"
+    rt_name              = "public"
 }
 
-private_subnet_params    = {
-  display_name           = "private"
-  cidr_block             = "10.0.2.0/24"
-  dns_label              = "private"
-  is_subnet_private      = true
-  sl_name                = "private"
-  rt_name                = "private"
+public_subnet_params            = {
+    display_name         = "private"
+    cidr_block           = "10.0.2.0/24"
+    dns_label            = "private"
+    is_subnet_private    = true
+    sl_name              = "private"
+    rt_name              = "private"
 }
 
 sl_params                = {
