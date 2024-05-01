@@ -81,25 +81,25 @@ sl_params                = {
 
 public_rt_params                = {
     display_name         = "public"
-    rt_rules             = [
-      {
+#    rt_rules             = [
+#      {
         description      = "Default route to Internet gateway"
         destination      = "0.0.0.0/0"
         destination_type = "CIDR_BLOCK"
         target_is_igw    = true
-      }
+#      }
     ]
 }
 private_rt_params                = {
     display_name         = "private"
-    rt_rules             = [
-      {
+#    rt_rules             = [
+#      {
         description      = "Default route to NAT gateway"
         destination      = "0.0.0.0/0"
         destination_type = "CIDR_BLOCK"
         target_is_igw    = false
-      }
-    ]
+#      }
+#    ]
 }
 
 user_name                = "opc"

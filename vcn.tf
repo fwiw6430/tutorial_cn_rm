@@ -87,30 +87,30 @@ resource "oci_core_route_table" "public_rt" {
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_virtual_network.vcn.id
   display_name               = var.public_rt_params.display_name
-  dynamic "route_rules" {
-    iterator                 = rt_rules
-    for_each                 = var.public_rt_params.rt_rules
+#  dynamic "route_rules" {
+#    iterator                 = rt_rules
+#    for_each                 = var.public_rt_params.rt_rules
     content {
-      description            = rt_rules.value.description
-      destination            = rt_rules.value.destination
-      destination_type       = rt_rules.value.destination_type
+      description            = var.public_rt_params.description
+      destination            = var.public_rt_params.destination
+      destination_type       = var.public_rt_params.destination_type
       network_entity_id      = oci_core_internet_gateway.igw.id
     }
-  }
+#  }
 }
 
 resource "oci_core_route_table" "private_rt" {
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_virtual_network.vcn.id
   display_name               = var.private_rt_params.display_name
-  dynamic "route_rules" {
-    iterator                 = rt_rules
-    for_each                 = var.private_rt_params.rt_rules
+#  dynamic "route_rules" {
+#    iterator                 = rt_rules
+#    for_each                 = var.private_rt_params.rt_rules
     content {
-      description            = rt_rules.value.description
-      destination            = rt_rules.value.destination
-      destination_type       = rt_rules.value.destination_type
+      description            = var.private_rt_params.description
+      destination            = var.private_rt_params.destination
+      destination_type       = var.private_rt_params.destination_type
       network_entity_id      = oci_core_internet_gateway.ngw.id
     }
-  }
+#  }
 }

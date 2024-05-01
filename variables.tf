@@ -44,27 +44,29 @@ variable "sl_params" {
 }
 variable "public_rt_params" {
   description          = "Route Table Params for public subnet"
-  type = map(object({
-  display_name       = string
-  rt_rules      = list(object({
-    description      = string
-    destination      = string
-    destination_type = string
-    target_is_igw    = bool
-  }))
-  }))
+  type                 = map(string)
+#  type = map(object({
+#  display_name       = string
+#  rt_rules      = list(object({
+#    description      = string
+#    destination      = string
+#    destination_type = string
+#    target_is_igw    = bool
+#  }))
+#  }))
 }
 variable "private_rt_params" {
   description          = "Route Table Params for private subnet"
-  type = map(object({
-  display_name       = string
-  rt_rules      = list(object({
-    description      = string
-    destination      = string
-    destination_type = string
-    target_is_igw    = bool
-  }))
-  }))
+  type                 = map(string)
+#  type = map(object({
+#  display_name       = string
+#  rt_rules      = list(object({
+#    description      = string
+#    destination      = string
+#    destination_type = string
+#    target_is_igw    = bool
+#  }))
+#  }))
 }
 variable "user_name" { 
   description          = "User name to be used to access instances via SSH"
