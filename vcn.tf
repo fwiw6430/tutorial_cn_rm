@@ -27,7 +27,7 @@ resource "oci_core_subnet" "public_sub" {
   dns_label                  = var.public_subnet_params.dns_label
   prohibit_public_ip_on_vnic = var.public_subnet_params.is_subnet_private
   security_list_ids          = [oci_core_security_list.sl[var.public_subnet_params.sl_name].id]
-  route_table_id             = oci_core_route_table.rt[var.public_subnet_params.rt_name].id
+  route_table_id             = oci_core_route_table.public_rt.id
 }
 
 resource "oci_core_subnet" "private_sub" {
@@ -38,7 +38,7 @@ resource "oci_core_subnet" "private_sub" {
   dns_label                  = var.private_subnet_params.dns_label
   prohibit_public_ip_on_vnic = var.private_subnet_params.is_subnet_private
   security_list_ids          = [oci_core_security_list.sl[var.private_subnet_params.sl_name].id]
-  route_table_id             = oci_core_route_table.rt[var.private_subnet_params.rt_name].id
+  route_table_id             = oci_core_route_table.private_rt.id
 }
 
 resource "oci_core_security_list" "sl" {
@@ -90,12 +90,12 @@ resource "oci_core_route_table" "public_rt" {
 #  dynamic "route_rules" {
 #    iterator                 = rt_rules
 #    for_each                 = var.public_rt_params.rt_rules
-    content {
+#    content {
       description            = var.public_rt_params.description
       destination            = var.public_rt_params.destination
       destination_type       = var.public_rt_params.destination_type
       network_entity_id      = oci_core_internet_gateway.igw.id
-    }
+#    }
 #  }
 }
 
@@ -106,11 +106,11 @@ resource "oci_core_route_table" "private_rt" {
 #  dynamic "route_rules" {
 #    iterator                 = rt_rules
 #    for_each                 = var.private_rt_params.rt_rules
-    content {
+#    content {
       description            = var.private_rt_params.description
       destination            = var.private_rt_params.destination
       destination_type       = var.private_rt_params.destination_type
       network_entity_id      = oci_core_internet_gateway.ngw.id
-    }
+#    }
 #  }
 }
