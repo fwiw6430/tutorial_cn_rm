@@ -6,6 +6,7 @@ resource "oci_core_virtual_network" "vcn" {
 }
 
 resource "oci_core_internet_gateway" "igw" {
+  count                      = var.private_bastion ? 0 : 1
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_virtual_network.vcn.id
   display_name               = var.igw_display_name
@@ -17,16 +18,27 @@ resource "oci_core_nat_gateway" "ngw" {
   display_name               = var.ngw_display_name
 }
 
-resource "oci_core_subnet" "sub" {
+resource "oci_core_subnet" "public_sub" {
+  count                      = var.private_bastion ? 0 : 1
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_virtual_network.vcn.id
-  for_each                   = var.subnet_params
-  display_name               = each.value.display_name
-  cidr_block                 = each.value.cidr_block
-  dns_label                  = each.value.dns_label
-  prohibit_public_ip_on_vnic = each.value.is_subnet_private
-  security_list_ids          = [oci_core_security_list.sl[each.value.sl_name].id]
-  route_table_id             = oci_core_route_table.rt[each.value.rt_name].id
+  display_name               = var.public_subnet_params.display_name
+  cidr_block                 = var.public_subnet_params.cidr_block
+  dns_label                  = var.public_subnet_params.dns_label
+  prohibit_public_ip_on_vnic = var.public_subnet_params.is_subnet_private
+  security_list_ids          = [oci_core_security_list.sl[var.public_subnet_params.sl_name].id]
+  route_table_id             = oci_core_route_table.rt[var.public_subnet_params.rt_name].id
+}
+
+resource "oci_core_subnet" "private_sub" {
+  compartment_id             = var.compartment_ocid
+  vcn_id                     = oci_core_virtual_network.vcn.id
+  display_name               = var.private_subnet_params.display_name
+  cidr_block                 = var.private_subnet_params.cidr_block
+  dns_label                  = var.private_subnet_params.dns_label
+  prohibit_public_ip_on_vnic = var.private_subnet_params.is_subnet_private
+  security_list_ids          = [oci_core_security_list.sl[var.private_subnet_params.sl_name].id]
+  route_table_id             = oci_core_route_table.rt[var.private_subnet_params.rt_name].id
 }
 
 resource "oci_core_security_list" "sl" {
