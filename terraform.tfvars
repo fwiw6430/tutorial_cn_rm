@@ -8,22 +8,23 @@ igw_display_name         = "igw"
 
 ngw_display_name         = "ngw"
 
-public_subnet_params            = {
+subnet_params            = {
+  public                 = {
     display_name         = "public"
     cidr_block           = "10.0.1.0/24"
     dns_label            = "public"
     is_subnet_private    = false
     sl_name              = "public"
     rt_name              = "public"
-}
-
-public_subnet_params            = {
+  }
+  private                = {
     display_name         = "private"
     cidr_block           = "10.0.2.0/24"
     dns_label            = "private"
     is_subnet_private    = true
     sl_name              = "private"
     rt_name              = "private"
+  }
 }
 
 sl_params                = {
@@ -79,27 +80,29 @@ sl_params                = {
   }
 }
 
-public_rt_params                = {
+rt_params                = {
+  public                 = {
     display_name         = "public"
-#    rt_rules             = [
-#      {
+    rt_rules             = [
+      {
         description      = "Default route to Internet gateway"
         destination      = "0.0.0.0/0"
         destination_type = "CIDR_BLOCK"
         target_is_igw    = true
-#      }
-#    ]
-}
-private_rt_params                = {
+      }
+    ]
+  }
+  private = {
     display_name         = "private"
-#    rt_rules             = [
-#      {
+    rt_rules             = [
+      {
         description      = "Default route to NAT gateway"
         destination      = "0.0.0.0/0"
         destination_type = "CIDR_BLOCK"
         target_is_igw    = false
-#      }
-#    ]
+      }
+    ]
+  }
 }
 
 user_name                = "opc"

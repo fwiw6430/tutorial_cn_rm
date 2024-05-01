@@ -2,7 +2,7 @@
 title: "HPC/GPU cluster Terraform scripts"
 description: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 5.0"
 schemaVersion: 1.0.0
-version: "20240501"
+version: "2024050101"
 informationalText: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 5.0"
 
 # Code history
@@ -10,8 +10,11 @@ informationalText: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 5.0"
 # 2.0: Jun 17th 2023: Support resource manager stack
 # 3.0: Aug 21st 2023: Support SMT and NPT BIOS settings
 # 4.0: Feb 1st  2024: Change CN configuration method from individual RPMs to OCA
-# 5.0: May 1st  2024: Add bastion option to attach to private subnet
+# 5.0: May 1st  2024: Add new feature for bastion to connect to private subnet
 
+#source:
+#  type: marketplace
+#  reference: 67628143
 locale: "en"
 
 outputs:
@@ -29,9 +32,7 @@ variableGroups:
       - ${private_bastion}
   - title: "Compute/GPU node options"
     variables:
-      - ${cn_display_name}
       - ${comp_shape}
-      - ${cn_node_count}
       - ${comp_image}
       - ${comp_boot_vol_size}
       - ${comp_cloud_config}
@@ -39,19 +40,20 @@ variableGroups:
       - ${comp_nps_gpu40}
       - ${comp_nps_gpu80}
       - ${comp_smt}
+      - ${cn_display_name}
+      - ${cn_node_count}
   - title: "Hidden"
     variables:
       - ${vcn_params}
       - ${igw_display_name}
       - ${ngw_display_name}
-      - ${public_subnet_params}
-      - ${private_subnet_params}
+      - ${subnet_params}
       - ${sl_params}
-      - ${public_rt_params}
-      - ${private_rt_params}
+      - ${rt_params}
       - ${user_name}
       - ${inst_params_bast}
       - ${rm_pend_display_name}
+      - ${comp_nps}
     visible: false
 
 variables:
@@ -72,7 +74,7 @@ variables:
   ssh_key:
     type: oci:core:ssh:publickey
     title: "SSH public key"
-    description: "SSH public key to login to bastion"
+    description: "SSH public key to login to Bastion"
     required: true
   private_bastion:
     type: boolean
