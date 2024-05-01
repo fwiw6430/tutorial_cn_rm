@@ -47,7 +47,8 @@ variableGroups:
       - ${public_subnet_params}
       - ${private_subnet_params}
       - ${sl_params}
-      - ${rt_params}
+      - ${public_rt_params}
+      - ${private_rt_params}
       - ${user_name}
       - ${inst_params_bast}
       - ${rm_pend_display_name}
