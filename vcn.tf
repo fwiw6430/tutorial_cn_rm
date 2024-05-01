@@ -19,7 +19,7 @@ resource "oci_core_nat_gateway" "ngw" {
 }
 
 resource "oci_core_subnet" "public_sub" {
-#  count                      = var.private_bastion ? 0 : 1
+  count                      = var.private_bastion ? 0 : 1
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_virtual_network.vcn.id
   display_name               = var.public_subnet_params.display_name
@@ -82,19 +82,35 @@ resource "oci_core_security_list" "sl" {
   }
 }
 
-resource "oci_core_route_table" "rt" {
+resource "oci_core_route_table" "public_rt" {
+  count                      = var.private_bastion ? 0 : 1
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_virtual_network.vcn.id
-  for_each                   = var.rt_params
-  display_name               = each.value.display_name
+  display_name               = var.public_rt_params.display_name
   dynamic "route_rules" {
     iterator                 = rt_rules
-    for_each                 = each.value.rt_rules
+    for_each                 = var.public_rt_params.rt_rules
     content {
       description            = rt_rules.value.description
       destination            = rt_rules.value.destination
       destination_type       = rt_rules.value.destination_type
-      network_entity_id      = rt_rules.value.target_is_igw ? oci_core_internet_gateway.igw.id : oci_core_nat_gateway.ngw.id
+      network_entity_id      = oci_core_internet_gateway.igw.id
+    }
+  }
+}
+
+resource "oci_core_route_table" "private_rt" {
+  compartment_id             = var.compartment_ocid
+  vcn_id                     = oci_core_virtual_network.vcn.id
+  display_name               = var.private_rt_params.display_name
+  dynamic "route_rules" {
+    iterator                 = rt_rules
+    for_each                 = var.private_rt_params.rt_rules
+    content {
+      description            = rt_rules.value.description
+      destination            = rt_rules.value.destination
+      destination_type       = rt_rules.value.destination_type
+      network_entity_id      = oci_core_internet_gateway.ngw.id
     }
   }
 }

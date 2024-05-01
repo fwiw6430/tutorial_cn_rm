@@ -79,8 +79,7 @@ sl_params                = {
   }
 }
 
-rt_params                = {
-  public                 = {
+public_rt_params                = {
     display_name         = "public"
     rt_rules             = [
       {
@@ -90,8 +89,8 @@ rt_params                = {
         target_is_igw    = true
       }
     ]
-  }
-  private = {
+}
+private_rt_params                = {
     display_name         = "private"
     rt_rules             = [
       {
@@ -101,7 +100,6 @@ rt_params                = {
         target_is_igw    = false
       }
     ]
-  }
 }
 
 user_name                = "opc"
