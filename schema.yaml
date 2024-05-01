@@ -32,7 +32,9 @@ variableGroups:
       - ${private_bastion}
   - title: "Compute/GPU node options"
     variables:
+      - ${cn_display_name}
       - ${comp_shape}
+      - ${cn_node_count}
       - ${comp_image}
       - ${comp_boot_vol_size}
       - ${comp_cloud_config}
@@ -40,8 +42,6 @@ variableGroups:
       - ${comp_nps_gpu40}
       - ${comp_nps_gpu80}
       - ${comp_smt}
-      - ${cn_display_name}
-      - ${cn_node_count}
   - title: "Hidden"
     variables:
       - ${vcn_params}
