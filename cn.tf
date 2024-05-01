@@ -48,7 +48,7 @@ resource "oci_core_cluster_network" "cn" {
   }
   placement_configuration {
     availability_domain         = var.ad
-    primary_subnet_id           = oci_core_subnet.sub["private"].id
+    primary_subnet_id           = oci_core_subnet.private_sub.id
   }
 }
 
