@@ -19,7 +19,7 @@ resource "oci_core_nat_gateway" "ngw" {
 }
 
 resource "oci_core_subnet" "public_sub" {
-  count                      = var.private_bastion ? 0 : 1
+#  count                      = var.private_bastion ? 0 : 1
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_virtual_network.vcn.id
   display_name               = var.public_subnet_params.display_name
