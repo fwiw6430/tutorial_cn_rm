@@ -19,7 +19,7 @@ resource "oci_core_nat_gateway" "ngw" {
 }
 
 resource "oci_core_subnet" "sub" {
-  compartment_id             = var.sc_compartment_ocid
+  compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_virtual_network.vcn.id
   for_each                   = var.subnet_params
   display_name               = each.value.display_name
@@ -72,7 +72,7 @@ resource "oci_core_security_list" "sl" {
 }
 
 resource "oci_core_route_table" "rt" {
-  compartment_id             = var.sc_compartment_ocid
+  compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_virtual_network.vcn.id
   for_each                   = var.rt_params
   display_name               = each.value.display_name
