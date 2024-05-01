@@ -88,7 +88,7 @@ public_rt_params                = {
         destination_type = "CIDR_BLOCK"
         target_is_igw    = true
 #      }
-    ]
+#    ]
 }
 private_rt_params                = {
     display_name         = "private"
