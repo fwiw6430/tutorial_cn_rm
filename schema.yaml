@@ -44,7 +44,8 @@ variableGroups:
       - ${vcn_params}
       - ${igw_display_name}
       - ${ngw_display_name}
-      - ${subnet_params}
+      - ${public_subnet_params}
+      - ${private_subnet_params}
       - ${sl_params}
       - ${rt_params}
       - ${user_name}
