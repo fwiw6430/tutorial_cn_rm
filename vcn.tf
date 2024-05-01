@@ -18,27 +18,16 @@ resource "oci_core_nat_gateway" "ngw" {
   display_name               = var.ngw_display_name
 }
 
-resource "oci_core_subnet" "public_sub" {
-  count                      = var.private_bastion ? 0 : 1
-  compartment_id             = var.compartment_ocid
+resource "oci_core_subnet" "sub" {
+  compartment_id             = var.sc_compartment_ocid
   vcn_id                     = oci_core_virtual_network.vcn.id
-  display_name               = var.public_subnet_params.display_name
-  cidr_block                 = var.public_subnet_params.cidr_block
-  dns_label                  = var.public_subnet_params.dns_label
-  prohibit_public_ip_on_vnic = var.public_subnet_params.is_subnet_private
-  security_list_ids          = [oci_core_security_list.sl[var.public_subnet_params.sl_name].id]
-  route_table_id             = oci_core_route_table.public_rt.id
-}
-
-resource "oci_core_subnet" "private_sub" {
-  compartment_id             = var.compartment_ocid
-  vcn_id                     = oci_core_virtual_network.vcn.id
-  display_name               = var.private_subnet_params.display_name
-  cidr_block                 = var.private_subnet_params.cidr_block
-  dns_label                  = var.private_subnet_params.dns_label
-  prohibit_public_ip_on_vnic = var.private_subnet_params.is_subnet_private
-  security_list_ids          = [oci_core_security_list.sl[var.private_subnet_params.sl_name].id]
-  route_table_id             = oci_core_route_table.private_rt.id
+  for_each                   = var.subnet_params
+  display_name               = each.value.display_name
+  cidr_block                 = each.value.cidr_block
+  dns_label                  = each.value.dns_label
+  prohibit_public_ip_on_vnic = each.value.is_subnet_private
+  security_list_ids          = [oci_core_security_list.sl[each.value.sl_name].id]
+  route_table_id             = oci_core_route_table.rt[each.value.rt_name].id
 }
 
 resource "oci_core_security_list" "sl" {
@@ -82,35 +71,19 @@ resource "oci_core_security_list" "sl" {
   }
 }
 
-resource "oci_core_route_table" "public_rt" {
-  count                      = var.private_bastion ? 0 : 1
-  compartment_id             = var.compartment_ocid
+resource "oci_core_route_table" "rt" {
+  compartment_id             = var.sc_compartment_ocid
   vcn_id                     = oci_core_virtual_network.vcn.id
-  display_name               = var.public_rt_params.display_name
-#  dynamic "route_rules" {
-#    iterator                 = rt_rules
-#    for_each                 = var.public_rt_params.rt_rules
-#    content {
-      description            = var.public_rt_params.description
-      destination            = var.public_rt_params.destination
-      destination_type       = var.public_rt_params.destination_type
-      network_entity_id      = oci_core_internet_gateway.igw.id
-#    }
-#  }
-}
-
-resource "oci_core_route_table" "private_rt" {
-  compartment_id             = var.compartment_ocid
-  vcn_id                     = oci_core_virtual_network.vcn.id
-  display_name               = var.private_rt_params.display_name
-#  dynamic "route_rules" {
-#    iterator                 = rt_rules
-#    for_each                 = var.private_rt_params.rt_rules
-#    content {
-      description            = var.private_rt_params.description
-      destination            = var.private_rt_params.destination
-      destination_type       = var.private_rt_params.destination_type
-      network_entity_id      = oci_core_internet_gateway.ngw.id
-#    }
-#  }
+  for_each                   = var.rt_params
+  display_name               = each.value.display_name
+  dynamic "route_rules" {
+    iterator                 = rt_rules
+    for_each                 = each.value.rt_rules
+    content {
+      description            = rt_rules.value.description
+      destination            = rt_rules.value.destination
+      destination_type       = rt_rules.value.destination_type
+      network_entity_id      = rt_rules.value.target_is_igw ? oci_core_internet_gateway.igw.id : oci_core_nat_gateway.ngw.id
+    }
+  }
 }
