@@ -6,7 +6,6 @@ resource "oci_core_virtual_network" "vcn" {
 }
 
 resource "oci_core_internet_gateway" "igw" {
-  count                      = var.private_bastion ? 0 : 1
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_virtual_network.vcn.id
   display_name               = var.igw_display_name
