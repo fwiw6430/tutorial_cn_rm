@@ -94,14 +94,17 @@ variable "exist_vcn" {
 variable "vcn_ocid" { 
   description          = "Pre-exsisting VCN OCID for HPC/GPU cluster to be deployed in"
   type                 = string
+  default              = ""
 }
 variable "public_ocid" { 
   description          = "Pre-exsisting public subnet OCID for HPC/GPU cluster to be deployed in"
   type                 = string
+  default              = ""
 }
 variable "private_ocid" { 
   description          = "Pre-exsisting private subnet OCID for HPC/GPU cluster to be deployed in"
   type                 = string
+  default              = ""
 }
 variable "comp_shape" { 
   description          = "Compute/GPU node shape"
