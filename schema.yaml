@@ -1,9 +1,9 @@
 ---
 title: "HPC/GPU cluster Terraform scripts"
-description: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 5.0"
+description: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 6.0"
 schemaVersion: 1.0.0
-version: "2024050101"
-informationalText: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 5.0"
+version: "2024061801"
+informationalText: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 6.0"
 
 # Code history
 # 1.0: May 30th 2023: New release
@@ -11,6 +11,7 @@ informationalText: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 5.0"
 # 3.0: Aug 21st 2023: Support SMT and NPT BIOS settings
 # 4.0: Feb 1st  2024: Change CN configuration method from individual RPMs to OCA
 # 5.0: May 1st  2024: Add new feature for bastion to connect to private subnet
+# 6.0: Jun 18th 2024: Add new feature for deploying HPC/GPU cluster on pre-existing VCN
 
 #source:
 #  type: marketplace
@@ -30,6 +31,10 @@ variableGroups:
       - ${ad}
       - ${ssh_key}
       - ${private_bastion}
+      - ${exist_vcn}
+      - ${vcn_ocid}
+      - ${public_ocid}
+      - ${private_ocid}
   - title: "Compute/GPU node options"
     variables:
       - ${cn_display_name}
@@ -81,6 +86,32 @@ variables:
     title: "Private bastion"
     description: "Connect bastion to private subnet"
     default: false
+  exist_vcn:
+    type: boolean
+    title: "Use existing VCN"
+    description: "Deploy HPC/GPU cluster on existing VCN"
+    default: false
+  vcn_ocid:
+    title: "VCN OCID"
+    description: "Pre-exsisting VCN OCID for HPC/GPU cluster to be deployed in"
+    visible:
+      and: 
+        - ${exist_vcn}
+    required: true 
+  public_ocid:
+    title: "Public subnet OCID"
+    description: "Pre-exsisting public subnet OCID for HPC/GPU cluster to be deployed in"
+    visible:
+      and: 
+        - ${exist_vcn}
+    required: true 
+  private_ocid:
+    title: "Private subnet OCID"
+    description: "Pre-exsisting Private subnet OCID for HPC/GPU cluster to be deployed in"
+    visible:
+      and: 
+        - ${exist_vcn}
+    required: true 
   comp_shape:
     type: enum
     title: "Shape"
