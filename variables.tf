@@ -87,6 +87,22 @@ variable "private_bastion" {
   description          = "Connect bastion to private subnet"
   type                 = bool
 }
+variable "exist_vcn" {
+  description          = "Deploy HPC/GPU cluster on existing VCN"
+  type                 = bool
+}
+variable "vcn_ocid" { 
+  description          = "Pre-exsisting VCN OCID for HPC/GPU cluster to be deployed in"
+  type                 = string
+}
+variable "public_ocid" { 
+  description          = "Pre-exsisting public subnet OCID for HPC/GPU cluster to be deployed in"
+  type                 = string
+}
+variable "private_ocid" { 
+  description          = "Pre-exsisting private subnet OCID for HPC/GPU cluster to be deployed in"
+  type                 = string
+}
 variable "comp_shape" { 
   description          = "Compute/GPU node shape"
   type                 = string
