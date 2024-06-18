@@ -101,9 +101,9 @@ variables:
     description: "Pre-exsisting public subnet OCID for HPC/GPU cluster to be deployed in"
     visible:
       and: 
-        and: 
+        - and: 
           - ${exist_vcn}
-        not:
+        - not:
           - ${private_bastion}
     required: true 
   private_ocid:
