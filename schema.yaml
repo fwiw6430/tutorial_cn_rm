@@ -94,9 +94,10 @@ variables:
   vcn_ocid:
     title: "VCN OCID"
     description: "Pre-exsisting VCN OCID for HPC/GPU cluster to be deployed in"
-    visible:
-      and: 
-        - ${exist_vcn}
+#    visible:
+#      and: 
+#        - ${exist_vcn}
+    visible: ${exist_vcn}
     required: true 
   public_ocid:
     title: "Public subnet OCID"
