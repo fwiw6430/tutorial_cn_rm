@@ -75,6 +75,7 @@ resource "null_resource" "bastion" {
     }
   }
 }
+
 data "oci_resourcemanager_private_endpoint_reachable_ip" "rmpe_bast_ip" {
     count                   = 1
     private_endpoint_id     = oci_resourcemanager_private_endpoint.rms_private_endpoint[0].id

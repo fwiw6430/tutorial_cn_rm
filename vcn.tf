@@ -124,7 +124,7 @@ resource "oci_core_route_table" "public" {
 }
 
 resource "oci_core_route_table" "private" {
-  count                      = var.exist_vcn || var.private_bastion ? 0 : 1
+  count                      = var.exist_vcn ? 0 : 1
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_virtual_network.vcn[0].id
   display_name               = "private"
