@@ -32,7 +32,7 @@ resource "oci_resourcemanager_private_endpoint" "rms_private_endpoint" {
   count                     = 1
   compartment_id            = var.compartment_ocid
   display_name              = var.rm_pend_display_name
-#  vcn_id                    = var.exist_vcn ? var.vcn_ocid : oci_core_virtual_network.vcn[0].id
+  vcn_id                    = var.exist_vcn ? var.vcn_ocid : oci_core_virtual_network.vcn[0].id
   subnet_id                 = var.exist_vcn ? var.private_ocid : oci_core_subnet.private[0].id
 }
 
