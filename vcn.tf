@@ -141,3 +141,4 @@ resource "oci_core_route_table" "private" {
     network_entity_id        = oci_core_service_gateway.sgw[0].id
   }
 }
+

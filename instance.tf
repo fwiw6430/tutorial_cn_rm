@@ -81,3 +81,4 @@ data "oci_resourcemanager_private_endpoint_reachable_ip" "rmpe_bast_ip" {
     private_endpoint_id     = oci_resourcemanager_private_endpoint.rms_private_endpoint[0].id
     private_ip              = tostring(oci_core_instance.bastion.private_ip)
 }
+

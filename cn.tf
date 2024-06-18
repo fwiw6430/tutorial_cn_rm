@@ -62,3 +62,4 @@ data "oci_core_instance" "cn_instances" {
   count                         = var.cn_node_count > 0 ? var.cn_node_count : 0 
   instance_id                   = data.oci_core_cluster_network_instances.cn_instances[0].instances[count.index]["id"]
 }
+

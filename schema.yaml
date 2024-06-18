@@ -95,9 +95,7 @@ variables:
     title: "VCN OCID"
     description: "Pre-exsisting VCN OCID for HPC/GPU cluster to be deployed in"
     visible: ${exist_vcn}
-#    default: ""
     required: true 
-#    required: ${exist_vcn} 
   public_ocid:
     title: "Public subnet OCID"
     description: "Pre-exsisting public subnet OCID for HPC/GPU cluster to be deployed in"
@@ -107,14 +105,11 @@ variables:
           - ${exist_vcn}
         - not:
           - ${private_bastion}
-#    default: ""
     required: true 
   private_ocid:
     title: "Private subnet OCID"
     description: "Pre-exsisting Private subnet OCID for HPC/GPU cluster to be deployed in"
     visible: ${exist_vcn}
-#    required: ${exist_vcn} 
-#    default: ""
     required: true 
   comp_shape:
     type: enum

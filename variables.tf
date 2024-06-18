@@ -151,3 +151,4 @@ variable "cn_node_count" {
   description          = "Compute/GPU node count"
   type                 = number
 }
+
