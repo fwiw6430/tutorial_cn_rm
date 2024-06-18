@@ -13,7 +13,7 @@ resource "oci_core_instance" "bastion" {
     memory_in_gbs           = var.inst_params_bast.memory_in_gbs
   }
   create_vnic_details {
-    subnet_id               = var.exist_vcn ? var.private_bastion ? var.private_ocid : var.public_ocid : var.private_bastion ? oci_core_subnet.sub["private"].id : oci_core_subnet.sub["public"].id
+    subnet_id               = var.exist_vcn ? var.private_bastion ? var.private_ocid : var.public_ocid : var.private_bastion ? oci_core_subnet.private.id : oci_core_subnet.public.id
     assign_public_ip        = var.private_bastion ? false : true
   }
   source_details {
@@ -32,8 +32,8 @@ resource "oci_resourcemanager_private_endpoint" "rms_private_endpoint" {
   count                     = 1
   compartment_id            = var.compartment_ocid
   display_name              = var.rm_pend_display_name
-  vcn_id                    = oci_core_virtual_network.vcn.id
-  subnet_id                 = oci_core_subnet.sub["private"].id
+  vcn_id                    = oci_core_virtual_network.vcn[0].id
+  subnet_id                 = var.exist_vcn ? var.private_ocid : oci_core_subnet.private.id
 }
 
 resource "null_resource" "bastion" {
