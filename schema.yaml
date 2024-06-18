@@ -104,6 +104,8 @@ variables:
     visible:
       and: 
         - ${exist_vcn}
+      not:
+         - ${private_bastion}
     required: true 
   private_ocid:
     title: "Private subnet OCID"
