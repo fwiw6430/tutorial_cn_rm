@@ -200,6 +200,6 @@ variables:
     type: integer
     title: "Node count"
     description: "Compute/GPU node count"
-    minimum: 2
+    minimum: 1
     default: 2
     required: true
