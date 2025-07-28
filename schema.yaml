@@ -1,9 +1,9 @@
 ---
 title: "HPC/GPU cluster Terraform scripts"
-description: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 7.0"
+description: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 6.1"
 schemaVersion: 1.0.0
 version: "20250728"
-informationalText: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 7.0"
+informationalText: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 6.1"
 
 # Code history
 # 1.0: May 30th 2023: New release
@@ -12,7 +12,7 @@ informationalText: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 7.0"
 # 4.0: Feb 1st  2024: Change CN configuration method from individual RPMs to OCA
 # 5.0: May 1st  2024: Add new feature for bastion to connect to private subnet
 # 6.0: Jun 18th 2024: Add new feature for deploying HPC/GPU cluster on pre-existing VCN
-# 7.0: Jul 28th 2025: Add new feature for setting CN timeout period
+#  .1: Jul 28th 2025: Set terraform timeout for CN to 30 minutes
 
 #source:
 #  type: marketplace
@@ -58,6 +58,7 @@ variableGroups:
       - ${rt_params}
       - ${user_name}
       - ${inst_params_bast}
+      - ${cn_timeout}
       - ${rm_pend_display_name}
       - ${comp_nps}
     visible: false
