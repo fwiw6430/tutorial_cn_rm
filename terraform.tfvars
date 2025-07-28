@@ -8,4 +8,6 @@ inst_params_bast         = {
   boot_vol_size          = 100
 }
 
+cn_timeout               = "30m"
+
 rm_pend_display_name     = "rmpe_bast"

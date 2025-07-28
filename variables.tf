@@ -6,6 +6,10 @@ variable "inst_params_bast" {
   description          = "Instance Parameters for bastion"
   type                 = map(string)
 }
+variable "cn_timeout" {
+  description          = "CN creation timeout setting (minutes)"
+  type                 = string
+}
 variable "rm_pend_display_name" {
   description          = "Resource manager private endpoint display name"
   type                 = string

@@ -51,7 +51,7 @@ resource "oci_core_cluster_network" "cn" {
     primary_subnet_id           = var.exist_vcn ? var.private_ocid : oci_core_subnet.private[0].id
   }
   timeouts {
-    create                      = "2m"
+    create                      = var.cn_timeout
   }
 }
 
