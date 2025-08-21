@@ -1,9 +1,9 @@
 ---
 title: "HPC/GPU cluster Terraform scripts"
-description: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 6.1"
+description: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 7.0"
 schemaVersion: 1.0.0
-version: "20250728"
-informationalText: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 6.1"
+version: "20250821"
+informationalText: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 7.0"
 
 # Code history
 # 1.0: May 30th 2023: New release
@@ -13,6 +13,7 @@ informationalText: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 6.1"
 # 5.0: May 1st  2024: Add new feature for bastion to connect to private subnet
 # 6.0: Jun 18th 2024: Add new feature for deploying HPC/GPU cluster on pre-existing VCN
 #  .1: Jul 28th 2025: Set terraform timeout for CN to 30 minutes
+# 7.0: Aug 21th 2025: Add new compute shape BM.HPC.E5.144
 
 #source:
 #  type: marketplace
@@ -45,6 +46,7 @@ variableGroups:
       - ${comp_boot_vol_size}
       - ${comp_cloud_config}
       - ${comp_nps_x9}
+      - ${comp_nps_e5}
       - ${comp_nps_gpu40}
       - ${comp_nps_gpu80}
       - ${comp_smt}
@@ -119,6 +121,7 @@ variables:
     description: "Compute/GPU node shape"
     enum:
       - "BM.Optimized3.36"
+      - "BM.HPC.E5.144"
       - "BM.GPU4.8"
       - "BM.GPU.A100-v2.8"
     default: "BM.Optimized3.36"
@@ -155,6 +158,22 @@ variables:
           - eq:
             - ${comp_shape}
             - "BM.Optimized3.36"
+  comp_nps_e5:
+    type: enum
+    title: "NPS for BM.HPC.E5.144"
+    description: "Compute/GPU node NPS (NUMA nodes Per Socket) setting in BIOS for BM.HPC.E5.144"
+    enum:
+      - "NPS1"
+      - "NPS2"
+      - "NPS4"
+    default: "NPS4"
+    required: true
+    visible:
+      and: 
+        - or:  
+          - eq:
+            - ${comp_shape}
+            - "BM.HPC.E5.144"
   comp_nps_gpu40:
     type: enum
     title: "NPS for BM.GPU4.8"

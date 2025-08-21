@@ -73,6 +73,11 @@ variable "comp_nps_x9" {
   type                 = string
   default              = "NPS1"
 }
+variable "comp_nps_e5" {
+  description          = "Compute/GPU node NPS (NUMA nodes Per Socket) for BM.HPC.E5.144"
+  type                 = string
+  default              = "NPS4"
+}
 variable "comp_nps_gpu40" {
   description          = "Compute/GPU node NPS (NUMA nodes Per Socket) for BM.GPU4.8"
   type                 = string
