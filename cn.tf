@@ -18,11 +18,12 @@ resource "oci_core_instance_configuration" "cn_config" {
         boot_volume_size_in_gbs = var.comp_boot_vol_size
         image_id                = var.comp_image
       }
-      platform_config {
-        type                    = var.comp_shape == "BM.Optimized3.36" ? "INTEL_ICELAKE_BM" : var.comp_shape == "BM.GPU4.8" ? "AMD_ROME_BM_GPU" : var.comp_shape == "BM.GPU.A100-v2.8" ? "AMD_MILAN_BM_GPU" : "GENERIC_BM"
-        numa_nodes_per_socket   = var.comp_shape == "BM.Optimized3.36" ? var.comp_nps_x9 : var.comp_shape == "BM.GPU4.8" ? var.comp_nps_gpu40 : var.comp_shape == "BM.GPU.A100-v2.8" ? var.comp_nps_gpu80 : var.comp_nps_e5
-        is_symmetric_multi_threading_enabled = var.comp_smt
-      }
+#      platform_config {
+#      dynamic "platform_config" {
+#        type                    = var.comp_shape == "BM.Optimized3.36" ? "INTEL_ICELAKE_BM" : var.comp_shape == "BM.GPU4.8" ? "AMD_ROME_BM_GPU" : var.comp_shape == "BM.GPU.A100-v2.8" ? "AMD_MILAN_BM_GPU" : "GENERIC_BM"
+#        numa_nodes_per_socket   = var.comp_shape == "BM.Optimized3.36" ? var.comp_nps_x9 : var.comp_shape == "BM.GPU4.8" ? var.comp_nps_gpu40 : var.comp_shape == "BM.GPU.A100-v2.8" ? var.comp_nps_gpu80 : var.comp_nps_e5
+#        is_symmetric_multi_threading_enabled = var.comp_smt
+#      }
       agent_config {
         plugins_config {
           desired_state         = "ENABLED"

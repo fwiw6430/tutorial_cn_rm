@@ -68,31 +68,31 @@ variable "comp_cloud_config" {
   description          = "Compute/GPU node cloud-config file"
   type                 = string
 }
-variable "comp_nps_x9" {
-  description          = "Compute/GPU node NPS (NUMA nodes Per Socket) for BM.Optimized3.36"
-  type                 = string
-  default              = "NPS1"
-}
-variable "comp_nps_e5" {
-  description          = "Compute/GPU node NPS (NUMA nodes Per Socket) for BM.HPC.E5.144"
-  type                 = string
-  default              = "NPS4"
-}
-variable "comp_nps_gpu40" {
-  description          = "Compute/GPU node NPS (NUMA nodes Per Socket) for BM.GPU4.8"
-  type                 = string
-  default              = "NPS4"
-}
-variable "comp_nps_gpu80" {
-  description          = "Compute/GPU node NPS (NUMA nodes Per Socket) for BM.GPU.A100-v2.8"
-  type                 = string
-  default              = "NPS4"
-}
-variable "comp_smt" {
-  description          = "Compute/GPU node SMT (Simultanious Multi Threading) enabled in BIOS"
-  type                 = bool
-  default              = true
-}
+#variable "comp_nps_x9" {
+#  description          = "Compute/GPU node NPS (NUMA nodes Per Socket) for BM.Optimized3.36"
+#  type                 = string
+#  default              = "NPS1"
+#}
+#variable "comp_nps_e5" {
+#  description          = "Compute/GPU node NPS (NUMA nodes Per Socket) for BM.HPC.E5.144"
+#  type                 = string
+#  default              = "NPS4"
+#}
+#variable "comp_nps_gpu40" {
+#  description          = "Compute/GPU node NPS (NUMA nodes Per Socket) for BM.GPU4.8"
+#  type                 = string
+#  default              = "NPS4"
+#}
+#variable "comp_nps_gpu80" {
+#  description          = "Compute/GPU node NPS (NUMA nodes Per Socket) for BM.GPU.A100-v2.8"
+#  type                 = string
+#  default              = "NPS4"
+#}
+#variable "comp_smt" {
+#  description          = "Compute/GPU node SMT (Simultanious Multi Threading) enabled in BIOS"
+#  type                 = bool
+#  default              = true
+#}
 variable "cn_display_name" { 
   description          = "Cluster display name postfix"
   type                 = string
