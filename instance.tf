@@ -36,7 +36,8 @@ resource "oci_resourcemanager_private_endpoint" "rms_private_endpoint" {
   subnet_id                 = var.exist_vcn ? var.private_ocid : oci_core_subnet.private[0].id
 }
 
-resource "null_resource" "bastion" {
+resource "null_resource" "bastion_none5" {
+  count                     = var.cn_node_count > 0 ? var.comp_shape != "BM.HPC.E5.144" ? 1 : 0 : 0 
   depends_on                = [oci_core_instance.bastion]
   triggers                  = {
     bastion                 = oci_core_instance.bastion.id
@@ -64,7 +65,48 @@ resource "null_resource" "bastion" {
   }
   provisioner "remote-exec" {
     inline                  = [
-      for instance in data.oci_core_instance.cn_instances :
+      for instance in data.oci_core_instance.cn_instances_none5 :
+        "echo ${instance.display_name} | sudo tee -a ~${var.user_name}/hostlist.txt"
+    ]
+    connection {
+      host                  = data.oci_resourcemanager_private_endpoint_reachable_ip.rmpe_bast_ip[0].ip_address
+      type                  = "ssh"
+      user                  = var.user_name
+      private_key           = tls_private_key.ssh.private_key_pem
+    }
+  }
+}
+
+resource "null_resource" "bastion_e5" {
+  count                     = var.cn_node_count > 0 ? var.comp_shape == "BM.HPC.E5.144" ? 1 : 0 : 0 
+  depends_on                = [oci_core_instance.bastion]
+  triggers                  = {
+    bastion                 = oci_core_instance.bastion.id
+  }
+  provisioner "file" {
+    content                 = tls_private_key.ssh.private_key_pem
+    destination             = "/home/${var.user_name}/.ssh/id_rsa"
+    connection {
+      host                  = data.oci_resourcemanager_private_endpoint_reachable_ip.rmpe_bast_ip[0].ip_address
+      type                  = "ssh"
+      user                  = var.user_name
+      private_key           = tls_private_key.ssh.private_key_pem
+    }
+  }
+  provisioner "remote-exec" {
+    inline                  = [
+      "chmod 600 /home/${var.user_name}/.ssh/id_rsa",
+    ]
+    connection {
+      host                  = data.oci_resourcemanager_private_endpoint_reachable_ip.rmpe_bast_ip[0].ip_address
+      type                  = "ssh"
+      user                  = var.user_name
+      private_key           = tls_private_key.ssh.private_key_pem
+    }
+  }
+  provisioner "remote-exec" {
+    inline                  = [
+      for instance in data.oci_core_instance.cn_instances_e5 :
         "echo ${instance.display_name} | sudo tee -a ~${var.user_name}/hostlist.txt"
     ]
     connection {

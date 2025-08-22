@@ -45,11 +45,10 @@ variableGroups:
       - ${comp_image}
       - ${comp_boot_vol_size}
       - ${comp_cloud_config}
-#      - ${comp_nps_x9}
-#      - ${comp_nps_e5}
-#      - ${comp_nps_gpu40}
-#      - ${comp_nps_gpu80}
-#      - ${comp_smt}
+      - ${comp_nps_x9}
+      - ${comp_nps_gpu40}
+      - ${comp_nps_gpu80}
+      - ${comp_smt}
   - title: "Hidden"
     variables:
       - ${vcn_params}
@@ -62,7 +61,7 @@ variableGroups:
       - ${inst_params_bast}
       - ${cn_timeout}
       - ${rm_pend_display_name}
-#      - ${comp_nps}
+      - ${comp_nps}
     visible: false
 
 variables:
@@ -143,84 +142,68 @@ variables:
     title: "cloud-config"
     description: "Compute/GPU node cloud-config file"
     required: true
-#  comp_nps_x9:
-#    type: enum
-#    title: "NPS for BM.Optimized3.36"
-#    description: "Compute/GPU node NPS (NUMA nodes Per Socket) setting in BIOS for BM.Optimized3.36"
-#    enum:
-#      - "NPS1"
-#      - "NPS2"
-#    default: "NPS1"
-#    required: true
-#    visible:
-#      and: 
-#        - or:  
-#          - eq:
-#            - ${comp_shape}
-#            - "BM.Optimized3.36"
-#  comp_nps_e5:
-#    type: enum
-#    title: "NPS for BM.HPC.E5.144"
-#    description: "Compute/GPU node NPS (NUMA nodes Per Socket) setting in BIOS for BM.HPC.E5.144"
-#    enum:
-#      - "NPS1"
-#      - "NPS2"
-#      - "NPS4"
-#    default: "NPS4"
-#    required: true
-#    visible:
-#      and: 
-#        - or:  
-#          - eq:
-#            - ${comp_shape}
-#            - "BM.HPC.E5.144"
-#  comp_nps_gpu40:
-#    type: enum
-#    title: "NPS for BM.GPU4.8"
-#    description: "Compute/GPU node NPS (NUMA nodes Per Socket) setting in BIOS for BM.GPU4.8"
-#    enum:
-#      - "NPS0"
-#      - "NPS1"
-#      - "NPS2"
-#      - "NPS4"
-#    default: "NPS4"
-#    required: true
-#    visible:
-#      and: 
-#        - or:  
-#          - eq:
-#            - ${comp_shape}
-#            - "BM.GPU4.8"
-#  comp_nps_gpu80:
-#    type: enum
-#    title: "NPS for BM.GPU.A100-v2.8"
-#    description: "Compute/GPU node NPS (NUMA nodes Per Socket) setting in BIOS for BM.GPU.A100-v2.8"
-#    enum:
-#      - "NPS0"
-#      - "NPS1"
-#      - "NPS2"
-#      - "NPS4"
-#    default: "NPS4"
-#    required: true
-#    visible:
-#      and: 
-#        - or:  
-#          - eq:
-#            - ${comp_shape}
-#            - "BM.GPU.A100-v2.8"
-#  comp_smt:
-#    type: boolean
-#    title: "SMT"
-#    description: "Compute/GPU node SMT (Simultanious Multi Threading) enabled in BIOS"
-#    default: true
-#  cn_display_name:
-#    title: "Display name postfix"
-#    description: "Compute/GPU node display name postfix ex) If x9-ol87, Compute/GPU node hostname becomes inst-xxxxx-x9-ol87"
-#    required: true
-#  cn_node_count:
-#    type: integer
-#    title: "Node count"
-#    description: "Compute/GPU node count"
-#    minimum: 1
-#    default: 2
-#    required: true
+  comp_nps_x9:
+    type: enum
+    title: "NPS for BM.Optimized3.36"
+    description: "Compute/GPU node NPS (NUMA nodes Per Socket) setting in BIOS for BM.Optimized3.36"
+    enum:
+      - "NPS1"
+      - "NPS2"
+    default: "NPS1"
+    required: true
+    visible:
+      and: 
+        - or:  
+          - eq:
+            - ${comp_shape}
+            - "BM.Optimized3.36"
+  comp_nps_gpu40:
+    type: enum
+    title: "NPS for BM.GPU4.8"
+    description: "Compute/GPU node NPS (NUMA nodes Per Socket) setting in BIOS for BM.GPU4.8"
+    enum:
+      - "NPS0"
+      - "NPS1"
+      - "NPS2"
+      - "NPS4"
+    default: "NPS4"
+    required: true
+    visible:
+      and: 
+        - or:  
+          - eq:
+            - ${comp_shape}
+            - "BM.GPU4.8"
+  comp_nps_gpu80:
+    type: enum
+    title: "NPS for BM.GPU.A100-v2.8"
+    description: "Compute/GPU node NPS (NUMA nodes Per Socket) setting in BIOS for BM.GPU.A100-v2.8"
+    enum:
+      - "NPS0"
+      - "NPS1"
+      - "NPS2"
+      - "NPS4"
+    default: "NPS4"
+    required: true
+    visible:
+      and: 
+        - or:  
+          - eq:
+            - ${comp_shape}
+            - "BM.GPU.A100-v2.8"
+  comp_smt:
+    type: boolean
+    title: "SMT"
+    description: "Compute/GPU node SMT (Simultanious Multi Threading) enabled in BIOS"
+    default: true
+  cn_display_name:
+    title: "Display name postfix"
+    description: "Compute/GPU node display name postfix ex) If x9-ol87, Compute/GPU node hostname becomes inst-xxxxx-x9-ol87"
+    required: true
+  cn_node_count:
+    type: integer
+    title: "Node count"
+    description: "Compute/GPU node count"
+    minimum: 1
+    default: 2
+    required: true
