@@ -196,6 +196,18 @@ variables:
     title: "SMT"
     description: "Compute/GPU node SMT (Simultanious Multi Threading) enabled in BIOS"
     default: true
+    visible:
+      and: 
+        - or:  
+          - eq:
+            - ${comp_shape}
+            - "BM.Optimized3.36"
+          - eq:
+            - ${comp_shape}
+            - "BM.GPU4.8"
+          - eq:
+            - ${comp_shape}
+            - "BM.GPU.A100-v2.8"
   cn_display_name:
     title: "Display name postfix"
     description: "Compute/GPU node display name postfix ex) If x9-ol87, Compute/GPU node hostname becomes inst-xxxxx-x9-ol87"
