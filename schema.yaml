@@ -61,7 +61,6 @@ variableGroups:
       - ${inst_params_bast}
       - ${cn_timeout}
       - ${rm_pend_display_name}
-#      - ${comp_nps}
     visible: false
 
 variables:
