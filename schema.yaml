@@ -1,9 +1,9 @@
 ---
 title: "HPC/GPU cluster Terraform scripts"
-description: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 7.0"
+description: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 7.1"
 schemaVersion: 1.0.0
-version: "20250821"
-informationalText: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 7.0"
+version: "20251125"
+informationalText: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 7."
 
 # Code history
 # 1.0: May 30th 2023: New release
@@ -14,6 +14,8 @@ informationalText: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 7.0"
 # 6.0: Jun 18th 2024: Add new feature for deploying HPC/GPU cluster on pre-existing VCN
 #  .1: Jul 28th 2025: Set terraform timeout for CN to 30 minutes
 # 7.0: Aug 21th 2025: Add new compute shape BM.HPC.E5.144
+#  .1: Nov 25th 2025: Change private subnet from 10.0.2.0/24 to 10.0.3.0/24 to avoid network access
+#                     issue from bridge network mode container
 
 #source:
 #  type: marketplace
