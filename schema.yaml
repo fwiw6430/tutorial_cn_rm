@@ -1,6 +1,6 @@
 ---
 title: "HPC/GPU cluster Terraform scripts"
-description: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 7.1"
+description: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 7.2"
 schemaVersion: 1.0.0
 version: "20251125"
 informationalText: "Terraform scripts deploying HPC/GPU cluster on OCI ver. 7.2"
